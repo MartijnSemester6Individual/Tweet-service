@@ -28,8 +28,8 @@ public class TweetController {
     }
 
     @GetMapping("/tweets")
-    public List<Tweet> getAllTweets() {
-        return tweetService.getAllTweets();
+    public List<Tweet> getAllTweetsOrderDesc() {
+        return tweetService.getAllTweetsOrderDesc();
     }
 
     @GetMapping("/tweets/{id}")

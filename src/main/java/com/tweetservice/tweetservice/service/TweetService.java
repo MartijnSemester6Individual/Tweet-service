@@ -7,7 +7,7 @@ import java.util.List;
 public interface TweetService {
     Tweet saveTweet(Tweet tweet);
 
-    List<Tweet> getAllTweets();
+    List<Tweet> getAllTweetsOrderDesc();
 
     Tweet getTweetById(Long id);
 

@@ -4,6 +4,7 @@ import com.tweetservice.tweetservice.entity.TweetEntity;
 import com.tweetservice.tweetservice.model.Tweet;
 import com.tweetservice.tweetservice.repository.TweetRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,9 +28,9 @@ public class TweetServiceImpl implements TweetService {
     }
 
     @Override
-    public List<Tweet> getAllTweets() {
+    public List<Tweet> getAllTweetsOrderDesc() {
         List<TweetEntity> tweetEntities
-                = tweetRepository.findAll();
+                = tweetRepository.findAll(Sort.by(Sort.Direction.DESC, "tweetTimeStamp"));
         List<Tweet> tweets = tweetEntities
                 .stream()
                 .map(tweetEntity -> new Tweet(
