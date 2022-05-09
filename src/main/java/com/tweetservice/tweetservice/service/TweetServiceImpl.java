@@ -35,7 +35,9 @@ public class TweetServiceImpl implements TweetService {
                 .stream()
                 .map(tweetEntity -> new Tweet(
                         tweetEntity.getTweetId(),
+                        tweetEntity.getTweetUserId(),
                         tweetEntity.getTweetUserName(),
+                        tweetEntity.getTweetUserImage(),
                         tweetEntity.getTweetImage(),
                         tweetEntity.getTweetUserTag(),
                         tweetEntity.getTweetText(),
@@ -70,8 +72,6 @@ public class TweetServiceImpl implements TweetService {
     public Tweet updateTweet(Long id, Tweet tweet) {
         TweetEntity tweetEntity =
                 tweetRepository.findById(id).get();
-
-
         tweetRepository.save(tweetEntity);
         return tweet;
     }

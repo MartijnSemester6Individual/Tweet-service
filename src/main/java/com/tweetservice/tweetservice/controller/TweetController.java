@@ -23,7 +23,6 @@ public class TweetController {
 
     @PostMapping("/tweet")
     public Tweet saveTweet(@RequestBody Tweet tweet) {
-        System.out.println(tweet);
         return tweetService.saveTweet(tweet);
     }
 
@@ -39,13 +38,20 @@ public class TweetController {
         return ResponseEntity.ok(tweet);
     }
 
-    @DeleteMapping("/tweets/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteTweet(@PathVariable("id") Long id) {
+    @DeleteMapping("/tweets/{id}/{userId}")
+    public ResponseEntity<Map<String, Boolean>> deleteTweet(@PathVariable("id") Long id, @PathVariable("userId") String userId) {
         boolean deleted = false;
-        deleted = tweetService.deleteTweet(id);
+        Tweet tweet = null;
+        tweet = tweetService.getTweetById(id);
         Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", deleted);
-        return ResponseEntity.ok(response);
+
+        if(tweet.getTweetUserId().equals(userId)) {
+            deleted = tweetService.deleteTweet(id);
+            response.put("deleted", deleted);
+            return ResponseEntity.ok(response);
+        }
+        response.put("invalid request", false);
+        return ResponseEntity.badRequest().body(response);
     }
 
     @PutMapping("/tweets/{id}")
