@@ -1,17 +1,20 @@
-server:
-    port: 8081
-spring:
+  server:
+    port: 8080
+  spring:
     mvc:
-        converters:
-            preferred-json-mapper: gson
+      converters:
+        preferred-json-mapper: gson
     application:
-        name: AuthenticationAPI
+      name: TWEETAPI
     jpa:
-        database: mysql
-        hibernate:
-            ddl-auto: update
+      database: mysql
+      hibernate:
+        ddl-auto: update
     datasource:
-        url: "jdbc:mysql://localhost:3306/tweets"
-        username: "root"
-        password: "root"
-
+      url: "jdbc:mysql://localhost:3306/users"
+      username: "root"
+      password:
+  eureka:
+    client:
+      serviceUrl:
+        defaultZone: http://localhost:8083/eureka

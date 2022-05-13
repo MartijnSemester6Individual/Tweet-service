@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
@@ -53,11 +54,5 @@ public class TweetController {
         response.put("invalid request", false);
         return ResponseEntity.badRequest().body(response);
     }
-
-    @PutMapping("/tweets/{id}")
-    public ResponseEntity<Tweet> updateTweet(@PathVariable("id") Long id,
-                                           @RequestBody Tweet tweet) {
-        tweet = tweetService.updateTweet(id, tweet);
-        return ResponseEntity.ok(tweet);
-    }
 }
+
