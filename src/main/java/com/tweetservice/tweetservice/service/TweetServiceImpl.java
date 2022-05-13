@@ -60,6 +60,8 @@ public class TweetServiceImpl implements TweetService {
         return tweet;
     }
 
+
+
     @Override
     public boolean deleteTweet(Long id) {
         TweetEntity tweet = tweetRepository.findById(id).get();
@@ -69,10 +71,25 @@ public class TweetServiceImpl implements TweetService {
     }
 
     @Override
-    public Tweet updateTweet(Long id, Tweet tweet) {
-        TweetEntity tweetEntity =
-                tweetRepository.findById(id).get();
-        tweetRepository.save(tweetEntity);
-        return tweet;
+    public boolean updateTweet(Long id, Tweet updatedTweet) {
+        if (tweetRepository.findById(id).isPresent()) {
+            TweetEntity tweetEntity = tweetRepository.findById(id).get();
+            tweetRepository.save(tweetEntity);
+            return true;
+        } else {
+            return false;
+        }
     }
+
+    @Override
+    public List<TweetEntity> findByTweetUserId(String id) {
+        //List<TweetEntity> tweetEntities = tweetRepository.findByTweetUserId(id);
+        return tweetRepository.findByTweetUserId(id);
+    }
+
+    @Override
+    public TweetEntity save(TweetEntity tweetEntity) {
+        return tweetRepository.save(tweetEntity);
+    }
+
 }
