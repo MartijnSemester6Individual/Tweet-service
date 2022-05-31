@@ -38,20 +38,24 @@ public class TweetController {
         return ResponseEntity.ok(tweet);
     }
 
-    @DeleteMapping("/tweets/{id}/{userId}")
-    public ResponseEntity<Map<String, Boolean>> deleteTweet(@PathVariable("id") Long id, @PathVariable("userId") String userId) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteTweet(@PathVariable("id") String id) {
+        Long tweetId = Long.parseLong(id);
         boolean deleted = false;
         Tweet tweet = null;
-        tweet = tweetService.getTweetById(id);
+        tweet = tweetService.getTweetById(tweetId);
         Map<String, Boolean> response = new HashMap<>();
 
-        if(tweet.getTweetUserId().equals(userId)) {
-            deleted = tweetService.deleteTweet(id);
-            response.put("deleted", deleted);
-            return ResponseEntity.ok(response);
+        if(tweet == null) {
+            response.put("invalid request", false);
+            return ResponseEntity.badRequest().body(response);
         }
-        response.put("invalid request", false);
-        return ResponseEntity.badRequest().body(response);
+
+        deleted = tweetService.deleteTweet(tweetId);
+        response.put("deleted", deleted);
+        return ResponseEntity.ok(response);
+
+
     }
 }
 
