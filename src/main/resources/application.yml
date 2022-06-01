@@ -1,6 +1,6 @@
 ##Default application.yml file, always loads this
-server:
-  port: 8082
+#server:
+#  port: 8082
 spring:
   spring:
     profiles:

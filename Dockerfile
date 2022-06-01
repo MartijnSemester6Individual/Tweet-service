@@ -9,6 +9,6 @@ RUN ./mvnw dependency:go-offline
 
 COPY src ./src
 
-CMD ["./mvnw", "spring-boot:run"]
+CMD ["./mvnw", "spring-boot:run", "-Dspring.profiles.active=default,prod"]
 
 EXPOSE 8082/tcp
