@@ -12,5 +12,4 @@ spring:
     name: TWEETAPI
 eureka:
   client:
-    serviceUrl:
-      defaultZone: http://localhost:8083/eureka
+    enabled: false
