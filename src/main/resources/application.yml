@@ -9,7 +9,8 @@ spring:
     converters:
       preferred-json-mapper: gson
   application:
-    name: TWEETAPI
+    name: tweet-service
 eureka:
   client:
-    enabled: false
+    serviceUrl:
+      defaultZone: http://localhost:8083/eureka
