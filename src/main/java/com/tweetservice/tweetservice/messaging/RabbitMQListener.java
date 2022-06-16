@@ -20,9 +20,27 @@ public class RabbitMQListener {
     }
 
     @RabbitListener(queues = "${rabbitmq.queue}")
-    public void consumeMessageFromQueue(JSONObject message) {
-        System.out.println(message);
+    public void consumeUpdateUserTag(JSONObject message) {
         updateTweetUserTag(message);
+    }
+
+    @RabbitListener(queues = "deleteUserQueue")
+    public void consumeDeleteUserData(JSONObject message) {
+        deleteAllUserData(message);
+    }
+
+    private void deleteAllUserData(JSONObject deletedUser) {
+        String deletedUserId = deletedUser.get("id").toString();
+        List<TweetEntity> tweetsByUser = tweetService.findByTweetUserId(deletedUserId);
+        for(TweetEntity tweet : tweetsByUser) {
+            if(tweet.getTweetUserId() == null) {
+                return;
+            }
+            if(tweet.getTweetUserId() == deletedUserId) {
+                return;
+            }
+            tweetService.deleteTweet(tweet.getTweetId());
+        }
     }
 
     private void updateTweetUserTag(JSONObject updatedUser) {
